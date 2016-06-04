@@ -39,4 +39,4 @@ see [CONTRIBUTING.md][contributing]
 
 ## Contributors
 
-- [[your-github-name]](https://github.com/[your-github-name]) beanieboi - creator, maintainer
+- [[beanieboi]](https://github.com/[beanieboi]) beanieboi - creator, maintainer
