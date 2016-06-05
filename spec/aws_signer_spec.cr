@@ -27,7 +27,7 @@ describe AwsSigner do
     signed["Authorization"].should eq("AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20110909/us-east-1/host/aws4_request, SignedHeaders=date;host, Signature=b27ccfbfa7df52a200ff74193ca6e32d4b48b8856fab7ebf1c595d0670a7e470")
   end
 
-  it "signs get-relative" do
+  pending "signs get-relative" do
     uri = URI.parse("http://host.foo.com/foo/..")
     headers = {
       "Host" => "host.foo.com",
@@ -40,7 +40,7 @@ describe AwsSigner do
     signed["Authorization"].should eq("AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20110909/us-east-1/host/aws4_request, SignedHeaders=date;host, Signature=b27ccfbfa7df52a200ff74193ca6e32d4b48b8856fab7ebf1c595d0670a7e470")
   end
 
-  it "signs get-relative-relative" do
+  pending "signs get-relative-relative" do
     uri = URI.parse("http://host.foo.com/foo/bar/../..")
     headers = {
       "Host" => "host.foo.com",
@@ -53,7 +53,7 @@ describe AwsSigner do
     signed["Authorization"].should eq("AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20110909/us-east-1/host/aws4_request, SignedHeaders=date;host, Signature=b27ccfbfa7df52a200ff74193ca6e32d4b48b8856fab7ebf1c595d0670a7e470")
   end
 
-  it "signs get-slash-pointless-dot" do
+  pending "signs get-slash-pointless-dot" do
     uri = URI.parse("http://host.foo.com/./foo")
     headers = {
       "Host" => "host.foo.com",
@@ -66,7 +66,7 @@ describe AwsSigner do
     signed["Authorization"].should eq("AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20110909/us-east-1/host/aws4_request, SignedHeaders=date;host, Signature=910e4d6c9abafaf87898e1eb4c929135782ea25bb0279703146455745391e63a")
   end
 
-  it "signs get-slash" do
+  pending "signs get-slash" do
     uri = URI.parse("http://host.foo.com//")
     headers = {
       "Host" => "host.foo.com",
@@ -145,7 +145,7 @@ describe AwsSigner do
     signed["Authorization"].should eq("AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20110909/us-east-1/host/aws4_request, SignedHeaders=date;host, Signature=0dc122f3b28b831ab48ba65cb47300de53fbe91b577fe113edac383730254a3b")
   end
 
-  it "signs get-vanilla-utf8-query" do
+  pending "signs get-vanilla-utf8-query" do
     uri = URI.parse("http://host.foo.com/?ሴ=bar")
     p uri
     headers = {
