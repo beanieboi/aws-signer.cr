@@ -10,7 +10,7 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   aws_signer:
-    github: [your-github-name]/aws_signer
+    github: beanieboi/aws-signer.cr
 ```
 
 
