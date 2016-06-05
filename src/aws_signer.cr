@@ -62,24 +62,10 @@ module AwsSigner
       ].join("\n")
 
     k_date = hmac("AWS4" + config.secret_key, date[0, 8])
-    p "k_date #{k_date}"
     k_region = hmac(k_date, config.region)
-    p "k_region #{k_region}"
     k_service = hmac(k_region, service)
-    p "k_service #{k_service}"
     k_credentials = hmac(k_service, "aws4_request")
-    p "k_credentials #{k_credentials}"
     signature = hexhmac(k_credentials, string_to_sign)
-
-    if true
-      puts "<string to sign>"
-      puts string_to_sign
-      puts "</string to sign>"
-      puts "<canonical_request>"
-      puts canonical_request
-      puts "</canonical_request>"
-      puts "authorization"
-    end
 
     authorization = [
       "AWS4-HMAC-SHA256 Credential=#{config.access_key}/#{credential_string}",
@@ -97,9 +83,6 @@ module AwsSigner
   end
 
   def self.hmac(key, value)
-    # p "key:#{key}"
-    # p "val:#{value}"
-
     OpenSSL::HMAC.digest(:sha256, key, value)
   end
 
