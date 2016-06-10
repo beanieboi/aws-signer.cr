@@ -7,7 +7,8 @@ require "http"
 require "./aws_signer/*"
 
 module AwsSigner
-  RFC8601BASIC = "%Y%m%dT%H%M%SZ"
+  RFC8601BASIC  = "%Y%m%dT%H%M%SZ"
+  DATE_PATTERNS = {"%a, %d %b %Y %H:%M:%S %z", "%A, %d-%b-%y %H:%M:%S %z", "%a %b %e %H:%M:%S %Y", "%F"}
 
   def self.configure
     @@configuration = Config.new
@@ -31,8 +32,15 @@ module AwsSigner
     service = host.split(".", 2)[0]
 
     date_header = headers["Date"]? || headers["DATE"]? || headers["date"]?
-    date_to_parse = date_header ? HTTP.parse_time(date_header) : Time.now
-    date_to_parse = date_to_parse.as(Time)
+    date_to_parse = date_header ? parse_time(date_header) : Time.now
+
+    begin
+      date_to_parse = date_to_parse.as(Time)
+    rescue ex : TypeCastError
+    end
+
+    date_to_parse ||= Time.now
+
     date = date_to_parse.to_utc.to_s(RFC8601BASIC)
 
     canonical_request =
@@ -76,6 +84,17 @@ module AwsSigner
     signed = headers.dup
     signed["Authorization"] = authorization
     signed
+  end
+
+  def self.parse_time(time_str : String) : Time?
+    DATE_PATTERNS.each do |pattern|
+      begin
+        return Time.parse(time_str, pattern, kind: Time::Kind::Utc)
+      rescue Time::Format::Error
+      end
+    end
+
+    nil
   end
 
   def self.hexdigest(value)

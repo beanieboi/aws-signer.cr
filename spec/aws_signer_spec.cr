@@ -27,6 +27,24 @@ describe AwsSigner do
     signed["Authorization"].should eq("AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20110909/us-east-1/host/aws4_request, SignedHeaders=date;host, Signature=b27ccfbfa7df52a200ff74193ca6e32d4b48b8856fab7ebf1c595d0670a7e470")
   end
 
+  it "signs basic date formats" do
+    uri = URI.parse("http://host.foo.com/")
+    headers = {
+      "Host" => "host.foo.com",
+      "Date" => "2016-06-10",
+    }
+    body = ""
+    signed = AwsSigner.sign(
+      "GET",
+      uri,
+      headers,
+      body)
+
+    signed["Date"].should eq("2016-06-10")
+    signed["Host"].should eq("host.foo.com")
+    signed["Authorization"].should eq("AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20160610/us-east-1/host/aws4_request, SignedHeaders=date;host, Signature=b9bf8ea34cdd72cca83f4e716d939cb5ecdabd340e5f9240afe2ad04009f81e5")
+  end
+
   pending "signs get-relative" do
     uri = URI.parse("http://host.foo.com/foo/..")
     headers = {
