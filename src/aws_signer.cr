@@ -8,7 +8,7 @@ require "./aws_signer/*"
 
 module AwsSigner
   RFC8601BASIC  = "%Y%m%dT%H%M%SZ"
-  DATE_PATTERNS = {"%a, %d %b %Y %H:%M:%S %z", "%A, %d-%b-%y %H:%M:%S %z", "%a %b %e %H:%M:%S %Y", "%FT%H:%M:%S-%z"}
+  DATE_PATTERNS = {"%a, %d %b %Y %H:%M:%S %z", "%A, %d-%b-%y %H:%M:%S %z", "%a %b %e %H:%M:%S %Y", "%FT%H:%M:%S%:z"}
 
   def self.configure
     @@configuration = Config.new
@@ -41,7 +41,7 @@ module AwsSigner
 
     date_to_parse ||= Time.now
 
-    date = date_to_parse.to_utc.to_s(RFC8601BASIC)
+    date = date_to_parse.to_s(RFC8601BASIC)
 
     canonical_request =
       [
