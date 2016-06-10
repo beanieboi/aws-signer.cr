@@ -8,7 +8,7 @@ require "./aws_signer/*"
 
 module AwsSigner
   RFC8601BASIC  = "%Y%m%dT%H%M%SZ"
-  DATE_PATTERNS = {"%a, %d %b %Y %H:%M:%S %z", "%A, %d-%b-%y %H:%M:%S %z", "%a %b %e %H:%M:%S %Y", "%F"}
+  DATE_PATTERNS = {"%a, %d %b %Y %H:%M:%S %z", "%A, %d-%b-%y %H:%M:%S %z", "%a %b %e %H:%M:%S %Y", "%FT%H:%M:%S-%z"}
 
   def self.configure
     @@configuration = Config.new
