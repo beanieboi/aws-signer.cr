@@ -23,10 +23,13 @@ module AwsSigner
     method = method.upcase
 
     headers_array = headers.to_a
+    sorted_headers = headers_array.sort_by { |header| header[0] }
+    headers_keys = sorted_headers.map { |header| header[0].downcase }.join(";")
 
-    sorted_headers = headers_array.sort_by { |k| k[0] }
-    headers_keys = sorted_headers.map { |k, _v| k[0].downcase }.join(";")
-    headers_key_value = sorted_headers.map { |k, _v| [k[0].downcase, k[1].strip].join(":") }.join("\n") + "\n"
+    headers_key_value = sorted_headers.map do |header|
+      header = header.to_a
+      [header[0].downcase, header[1].strip].join(":")
+    end.join("\n") + "\n"
 
     host = uri.host.as(String)
     service = host.split(".", 2)[0]
