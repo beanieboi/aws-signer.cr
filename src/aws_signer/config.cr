@@ -3,7 +3,6 @@ module AwsSigner
     @access_key : String?
     @secret_key : String?
     @region : String?
-    @service : String?
 
     def access_key=(access_key)
       @access_key = access_key
@@ -27,14 +26,6 @@ module AwsSigner
 
     def region
       @region.as(String)
-    end
-
-    def service=(service)
-      @service = service
-    end
-
-    def service
-      @service.as(String)
     end
   end
 end

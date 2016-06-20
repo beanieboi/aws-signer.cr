@@ -19,7 +19,7 @@ module AwsSigner
     @@configuration ||= Config.new
   end
 
-  def self.sign(method : String, uri : URI, headers : Hash(String, String), body : String) : Hash(String, String)
+  def self.sign(service : String, method : String, uri : URI, headers : Hash(String, String), body : String) : Hash(String, String)
     method = method.upcase
 
     headers_array = headers.to_a
@@ -32,7 +32,6 @@ module AwsSigner
     end.join("\n") + "\n"
 
     host = uri.host.as(String)
-    service = config.service
 
     date_header = headers["Date"]? || headers["DATE"]? || headers["date"]?
     date_to_parse = date_header ? parse_time(date_header) : Time.now.to_utc
