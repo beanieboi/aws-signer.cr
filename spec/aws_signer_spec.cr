@@ -6,6 +6,7 @@ describe AwsSigner do
       config.access_key = "AKIDEXAMPLE"
       config.secret_key = "wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY"
       config.region = "us-east-1"
+      config.service = "host"
     end
   end
 

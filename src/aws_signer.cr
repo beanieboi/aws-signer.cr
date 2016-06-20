@@ -32,10 +32,10 @@ module AwsSigner
     end.join("\n") + "\n"
 
     host = uri.host.as(String)
-    service = host.split(".", 2)[0]
+    service = config.service
 
     date_header = headers["Date"]? || headers["DATE"]? || headers["date"]?
-    date_to_parse = date_header ? parse_time(date_header) : Time.now
+    date_to_parse = date_header ? parse_time(date_header) : Time.now.to_utc
 
     begin
       date_to_parse = date_to_parse.as(Time)
