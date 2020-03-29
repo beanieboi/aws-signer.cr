@@ -34,14 +34,14 @@ module AwsSigner
     host = uri.host.as(String)
 
     date_header = headers["Date"]? || headers["DATE"]? || headers["date"]?
-    date_to_parse = date_header ? parse_time(date_header) : Time.now.to_utc
+    date_to_parse = date_header ? parse_time(date_header) : Time.utc
 
     begin
       date_to_parse = date_to_parse.as(Time)
     rescue ex : TypeCastError
     end
 
-    date_to_parse ||= Time.now
+    date_to_parse ||= Time.utc
 
     date = date_to_parse.to_s(RFC8601BASIC)
 
@@ -89,14 +89,7 @@ module AwsSigner
   end
 
   def self.parse_time(time_str : String) : Time?
-    DATE_PATTERNS.each do |pattern|
-      begin
-        return Time.parse(time_str, pattern, kind: Time::Kind::Utc)
-      rescue Time::Format::Error
-      end
-    end
-
-    nil
+    Time::Format::HTTP_DATE.parse(time_str, Time::Location::UTC)
   end
 
   def self.hexdigest(value)
