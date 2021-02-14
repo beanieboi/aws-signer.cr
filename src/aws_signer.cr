@@ -1,4 +1,4 @@
-require "openssl"
+require "digest/sha256"
 require "openssl/hmac"
 require "time"
 require "uri"
