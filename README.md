@@ -35,7 +35,7 @@ signed["Authorization"]
 
 see [CONTRIBUTING.md][contributing]
 
-[contributing]: https://github.com/beanieboi/aws-signer.cr/blob/master/CONTRIBUTING.md
+[contributing]: https://github.com/beanieboi/aws-signer.cr/blob/main/CONTRIBUTING.md
 
 ## Contributors
 
