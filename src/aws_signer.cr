@@ -1,4 +1,4 @@
-require "openssl"
+require "digest/sha256"
 require "openssl/hmac"
 require "time"
 require "uri"
@@ -93,7 +93,7 @@ module AwsSigner
   end
 
   def self.hexdigest(value)
-    OpenSSL::Digest.new("sha256").update(value).hexdigest
+    Digest::SHA256.hexdigest(value)
   end
 
   def self.hmac(key, value)
